@@ -76,7 +76,8 @@ def draw_box(draw, prediction, text="", color=(255, 0, 0)):
         fill=color,
     )
     if text:
-        draw.text((left, abs(top - 15)), text, fill=color)
+        font=ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf",10)
+        draw.text((left, abs(top - 15)), text, font=font, fill=color)
 
 
 def setup_platform(hass, config, add_devices, discovery_info=None):
@@ -173,7 +174,7 @@ class ObjectClassifyEntity(ImageProcessingEntity):
 
     def save_image(self, image, predictions_json, target, directory):
         """Save a timestamped image with bounding boxes around targets."""
-        from PIL import Image, ImageDraw
+        from PIL import Image, ImageDraw, ImageFont
         import io
 
         img = Image.open(io.BytesIO(bytearray(image))).convert("RGB")
